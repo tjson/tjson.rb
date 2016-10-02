@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.version     = TJSON::VERSION
   spec.authors     = ["Tony Arcieri"]
   spec.email       = ["bascule@gmail.com"]
+  spec.licenses    = ["MIT"]
   spec.homepage    = "https://github.com/tjson/tjson-ruby"
   spec.summary     = "Tagged JSON with Rich Types"
   spec.description = "A JSON-compatible serialization format with rich type annotations"
