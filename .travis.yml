@@ -1,5 +1,6 @@
 language: ruby
 sudo: false
+before_install: gem install bundler
 
 bundler_args: --without development doc
 
