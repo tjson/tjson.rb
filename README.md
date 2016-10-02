@@ -1,8 +1,17 @@
-# TJSON for Ruby
+# TJSON for Ruby [![Gem Version][gem-image]][gem-link] [![Build Status][build-image]][build-link] [![Code Climate][codeclimate-image]][codeclimate-link] [![MIT licensed][license-image]][license-link]
 
 A Ruby implementation of TJSON: Tagged JSON with Rich Types.
 
 https://www.tjson.org
+
+[gem-image]: https://badge.fury.io/rb/tjson.svg
+[gem-link]: https://rubygems.org/gems/tjson
+[build-image]: https://secure.travis-ci.org/tjson/tjson-ruby.svg?branch=master
+[build-link]: https://travis-ci.org/tjson/tjson-ruby
+[codeclimate-image]: https://codeclimate.com/github/tjson/tjson-ruby.svg?branch=master
+[codeclimate-link]: https://codeclimate.com/github/tjson/tjson-ruby
+[license-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[license-link]: https://github.com/tjson/tjson-ruby/blob/master/LICENSE.txt
 
 ## Installation
 
