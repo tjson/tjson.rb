@@ -6,6 +6,7 @@ gemspec
 
 group :development, :test do
   gem "rake"
+  gem "toml-rb"
   gem "rspec", "~> 3.5"
   gem "rubocop"
 end
