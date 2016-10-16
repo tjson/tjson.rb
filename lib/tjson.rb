@@ -5,8 +5,9 @@ require "tjson/version"
 require "json"
 
 require "tjson/array"
+require "tjson/binary"
 require "tjson/object"
-require "tjson/utf8_string"
+require "tjson/tag_parser"
 
 # Tagged JSON with Rich Types
 module TJSON

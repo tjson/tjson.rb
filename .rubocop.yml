@@ -18,6 +18,9 @@ Style/StringLiterals:
 Metrics/AbcSize:
   Max: 25
 
+Metrics/CyclomaticComplexity:
+  Max: 10
+
 Metrics/ClassLength:
   Max: 100
 
