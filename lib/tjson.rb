@@ -4,6 +4,10 @@ require "tjson/version"
 
 require "json"
 
+require "tjson/array"
+require "tjson/object"
+require "tjson/utf8_string"
+
 # Tagged JSON with Rich Types
 module TJSON
   # Base class of all TJSON errors
@@ -14,6 +18,9 @@ module TJSON
 
   # Failure to parse TJSON document
   ParseError = Class.new(Error)
+
+  # Maximum allowed nesting (TODO: use TJSON-specified maximum)
+  MAX_NESTING = 100
 
   # Parse the given UTF-8 string as TJSON
   #
@@ -27,12 +34,17 @@ module TJSON
     end
 
     begin
-      raw_json = ::JSON.parse(utf8_string)
+      ::JSON.parse(
+        utf8_string,
+        max_nesting:      MAX_NESTING,
+        allow_nan:        false,
+        symbolize_names:  false,
+        create_additions: false,
+        object_class:     TJSON::Object,
+        array_class:      TJSON::Array
+      )
     rescue ::JSON::ParserError => ex
       raise TJSON::ParseError, ex.message, ex.backtrace
     end
-
-    # TODO: this needs to be postprocessed
-    raw_json
   end
 end
