@@ -2,13 +2,9 @@
 
 module TJSON
   # TJSON array type
-  class Array < ::Object
-    def initialize
-      @members = ::Array.new
-    end
-
+  class Array < ::Array
     def <<(obj)
-      @members << TJSON::UTF8String.parse(obj)
+      super(TJSON::UTF8String.parse(obj))
     end
   end
 end
