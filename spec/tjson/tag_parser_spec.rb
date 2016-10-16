@@ -19,4 +19,15 @@ RSpec.describe TJSON::TagParser do
       end
     end
   end
+
+  describe ".from_base16" do
+    let(:example_base16) { "48656c6c6f2c20776f726c6421".dup }
+    let(:example_result) { "Hello, world!".dup }
+
+    it "parses hexadecimal" do
+      result = described_class.from_base16(example_base16)
+      expect(result).to eq example_result
+      expect(result.encoding).to eq Encoding::BINARY
+    end
+  end
 end

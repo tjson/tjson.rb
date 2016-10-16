@@ -5,7 +5,6 @@ require "tjson/version"
 require "json"
 
 require "tjson/array"
-require "tjson/binary"
 require "tjson/object"
 require "tjson/tag_parser"
 
