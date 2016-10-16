@@ -22,6 +22,7 @@ module TJSON
       case tag
       when "u:" then str
       when "b16:" then from_base16(str)
+      when "b64:" then from_base64url(str)
       else raise TJSON::ParseError, "invalid tag #{tag.inspect} on string #{str.inspect}"
       end
     end
@@ -32,6 +33,15 @@ module TJSON
       raise TJSON::ParseError, "invalid base16: #{str.inspect}" unless str =~ /\A[a-f0-9]*\z/
 
       [str].pack("H*")
+    end
+
+    def from_base64url(str)
+      raise TypeError, "expected String, got #{str.class}" unless str.is_a?(::String)
+      raise TJSON::ParseError, "base64url only: #{str.inspect}" if str =~ %r{\+|\/}
+      raise TJSON::ParseError, "padding disallowed: #{str.inspect}" if str.include?("=")
+      raise TJSON::ParseError, "invalid base64url: #{str.inspect}" unless str =~ /\A[A-Za-z0-9\-_]*\z/
+
+      Base64.urlsafe_decode64(str)
     end
   end
 end

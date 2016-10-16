@@ -2,6 +2,7 @@
 
 require "tjson/version"
 
+require "base64"
 require "json"
 
 require "tjson/array"
