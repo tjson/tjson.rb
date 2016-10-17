@@ -8,5 +8,5 @@ group :development, :test do
   gem "rake"
   gem "toml-rb"
   gem "rspec", "~> 3.5"
-  gem "rubocop"
+  gem "rubocop", "0.44.1"
 end
