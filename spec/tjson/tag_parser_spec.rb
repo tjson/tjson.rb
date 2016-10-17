@@ -69,4 +69,49 @@ RSpec.describe TJSON::TagParser do
       end
     end
   end
+
+  describe ".from_integer" do
+    context "valid integer string" do
+      let(:example_string)  { "42" }
+      let(:example_integer) { 42 }
+
+      it "parses successfully" do
+        expect(described_class.from_integer(example_string)).to eq example_integer
+      end
+    end
+
+    context "MAXINT for sized 64-bit integer" do
+      let(:example_string)  { "9223372036854775807" }
+      let(:example_integer) { (2**63) - 1 }
+
+      it "parses successfully" do
+        expect(described_class.from_integer(example_string)).to eq example_integer
+      end
+    end
+
+    context "-MAXINT for sized 64-bit integer" do
+      let(:example_string)  { "-9223372036854775808" }
+      let(:example_integer) { -(2**63) }
+
+      it "parses successfully" do
+        expect(described_class.from_integer(example_string)).to eq example_integer
+      end
+    end
+
+    context "oversized integer string" do
+      let(:oversized_example) { "9223372036854775808" }
+
+      it "raises TJSON::ParseError" do
+        expect { described_class.from_integer(oversized_example) }.to raise_error(TJSON::ParseError)
+      end
+    end
+
+    context "undersized integer string" do
+      let(:oversized_example) { "-9223372036854775809" }
+
+      it "raises TJSON::ParseError" do
+        expect { described_class.from_integer(oversized_example) }.to raise_error(TJSON::ParseError)
+      end
+    end
+  end
 end
