@@ -42,6 +42,9 @@ module TJSON
       raise TJSON::ParseError, "padding disallowed: #{str.inspect}" if str.include?("=")
       raise TJSON::ParseError, "invalid base64url: #{str.inspect}" unless str =~ /\A[A-Za-z0-9\-_]*\z/
 
+      # Add padding, as older Rubies (< 2.3) require it
+      str = str.ljust((str.length + 3) & ~3, "=") if (str.length % 4).nonzero?
+
       Base64.urlsafe_decode64(str)
     end
 
