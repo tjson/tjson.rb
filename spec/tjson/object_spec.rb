@@ -4,10 +4,10 @@ RSpec.describe TJSON::Object do
   subject(:object) { described_class.new }
 
   describe "member name types" do
-    let(:example_value) { "u:bar".dup }
+    let(:example_value) { "s:bar".dup }
 
     context "Unicode Strings" do
-      let(:example_name) { "u:foo".dup }
+      let(:example_name) { "s:foo".dup }
 
       it "parses successfully" do
         expect { object[example_name] = example_value }.not_to raise_error

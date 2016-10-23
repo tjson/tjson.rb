@@ -4,7 +4,7 @@ RSpec.describe TJSON::TagParser do
   describe ".parse" do
     context "UTF-8 strings" do
       let(:example_result) { "hello, world!" }
-      let(:example_string) { "u:#{example_result}".dup }
+      let(:example_string) { "s:#{example_result}".dup }
 
       it "parses" do
         expect(described_class.parse(example_string)).to eq example_result

@@ -20,7 +20,7 @@ module TJSON
       tag = str.slice!(0, dpos + 1)
 
       case tag
-      when "u:" then str
+      when "s:" then str
       when "i:" then from_integer(str)
       when "t:" then from_timestamp(str)
       when "b16:" then from_base16(str)

@@ -22,7 +22,7 @@ RSpec.describe TJSON do
 
     # TODO: Remove when draft-tjson-examples has better coverage of object parsing
     context "object placeholder" do
-      let(:example_data) { '{"u:hello": "u:world"}' }
+      let(:example_data) { '{"s:hello": "s:world"}' }
 
       it "parses a simple TJSON object" do
         expect { TJSON.parse(example_data) }.not_to raise_error
