@@ -21,6 +21,9 @@ module TJSON
   # Failure to parse TJSON document
   ParseError = Class.new(Error)
 
+  # Duplicate object name
+  DuplicateNameError = Class.new(ParseError)
+
   # Maximum allowed nesting (TODO: use TJSON-specified maximum)
   MAX_NESTING = 100
 

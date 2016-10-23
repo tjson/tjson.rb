@@ -4,7 +4,7 @@ module TJSON
   # TJSON array type
   class Array < ::Array
     def <<(obj)
-      super(TJSON::TagParser.parse(obj))
+      super(TJSON::TagParser.value(obj))
     end
   end
 end

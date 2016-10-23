@@ -30,4 +30,13 @@ RSpec.describe TJSON::Object do
       end
     end
   end
+
+  describe "duplicate member names" do
+    let(:example_name) { "s:foo" }
+
+    it "raises TJSON::DuplicateNameError" do
+      object[example_name.dup] = 1
+      expect { object[example_name.dup] = 2 }.to raise_error(TJSON::DuplicateNameError)
+    end
+  end
 end

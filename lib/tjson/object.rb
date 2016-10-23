@@ -9,7 +9,10 @@ module TJSON
         raise TJSON::ParseError, "no tag found on object name: #{name.inspect}"
       end
 
-      super(TJSON::TagParser.parse(name), TJSON::TagParser.parse(value))
+      name = TJSON::TagParser.value(name)
+      raise TJSON::DuplicateNameError, "duplicate member name: #{name.inspect}" if key?(name)
+
+      super(name, TJSON::TagParser.value(value))
     end
   end
 end
