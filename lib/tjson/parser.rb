@@ -30,16 +30,16 @@ module TJSON
 
       case tag
       when "s:" then str
-      when "i:" then from_signed_int(str)
-      when "u:" then from_unsigned_int(str)
-      when "t:" then from_timestamp(str)
-      when "b16:" then from_base16(str)
-      when "b64:" then from_base64url(str)
+      when "i:" then parse_signed_int(str)
+      when "u:" then parse_unsigned_int(str)
+      when "t:" then parse_timestamp(str)
+      when "b16:" then parse_base16(str)
+      when "b64:" then parse_base64url(str)
       else raise TJSON::ParseError, "invalid tag #{tag.inspect} on string #{str.inspect}"
       end
     end
 
-    def from_base16(str)
+    def parse_base16(str)
       raise TypeError, "expected String, got #{str.class}" unless str.is_a?(::String)
       raise TJSON::ParseError, "base16 must be lower case: #{str.inspect}" if str =~ /[A-F]/
       raise TJSON::ParseError, "invalid base16: #{str.inspect}" unless str =~ /\A[a-f0-9]*\z/
@@ -47,7 +47,7 @@ module TJSON
       [str].pack("H*")
     end
 
-    def from_base64url(str)
+    def parse_base64url(str)
       raise TypeError, "expected String, got #{str.class}" unless str.is_a?(::String)
       raise TJSON::ParseError, "base64url only: #{str.inspect}" if str =~ %r{\+|\/}
       raise TJSON::ParseError, "padding disallowed: #{str.inspect}" if str.include?("=")
@@ -59,7 +59,7 @@ module TJSON
       Base64.urlsafe_decode64(str)
     end
 
-    def from_signed_int(str)
+    def parse_signed_int(str)
       raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A\-?(0|[1-9][0-9]*)\z/
 
       result = Integer(str, 10)
@@ -69,7 +69,7 @@ module TJSON
       result
     end
 
-    def from_unsigned_int(str)
+    def parse_unsigned_int(str)
       raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A(0|[1-9][0-9]*)\z/
 
       result = Integer(str, 10)
@@ -78,7 +78,7 @@ module TJSON
       result
     end
 
-    def from_timestamp(str)
+    def parse_timestamp(str)
       raise TJSON::ParseError, "invalid timestamp: #{str.inspect}" unless str =~ /\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\z/
 
       Time.iso8601(str)
