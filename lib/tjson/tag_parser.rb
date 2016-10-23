@@ -21,7 +21,8 @@ module TJSON
 
       case tag
       when "s:" then str
-      when "i:" then from_integer(str)
+      when "i:" then from_signed_int(str)
+      when "u:" then from_unsigned_int(str)
       when "t:" then from_timestamp(str)
       when "b16:" then from_base16(str)
       when "b64:" then from_base64url(str)
@@ -49,12 +50,21 @@ module TJSON
       Base64.urlsafe_decode64(str)
     end
 
-    def from_integer(str)
+    def from_signed_int(str)
       raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A\-?(0|[1-9][0-9]*)\z/
 
       result = Integer(str, 10)
       raise TJSON::ParseError, "oversized integer: #{result}"  if result > 9_223_372_036_854_775_807
       raise TJSON::ParseError, "undersized integer: #{result}" if result < -9_223_372_036_854_775_808
+
+      result
+    end
+
+    def from_unsigned_int(str)
+      raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A(0|[1-9][0-9]*)\z/
+
+      result = Integer(str, 10)
+      raise TJSON::ParseError, "oversized integer: #{result}" if result > 18_446_744_073_709_551_615
 
       result
     end
