@@ -114,4 +114,22 @@ RSpec.describe TJSON::TagParser do
       end
     end
   end
+
+  describe ".from_timestamp" do
+    context "valid UTC RFC3339 timestamp" do
+      let(:example_timestamp) { "2016-10-02T07:31:51Z" }
+
+      it "parses successfully" do
+        expect(described_class.from_timestamp(example_timestamp)).to be_a Time
+      end
+    end
+
+    context "RFC3339 timestamp with non-UTC time zone" do
+      let(:invalid_timestamp) { "2016-10-02T07:31:51-08:00" }
+
+      it "raises TJSON::ParseError" do
+        expect { described_class.from_timestamp(invalid_timestamp) }.to raise_error(TJSON::ParseError)
+      end
+    end
+  end
 end

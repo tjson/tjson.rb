@@ -4,6 +4,7 @@ require "tjson/version"
 
 require "base64"
 require "json"
+require "time"
 
 require "tjson/array"
 require "tjson/object"

@@ -22,6 +22,7 @@ module TJSON
       case tag
       when "u:" then str
       when "i:" then from_integer(str)
+      when "t:" then from_timestamp(str)
       when "b16:" then from_base16(str)
       when "b64:" then from_base64url(str)
       else raise TJSON::ParseError, "invalid tag #{tag.inspect} on string #{str.inspect}"
@@ -56,6 +57,12 @@ module TJSON
       raise TJSON::ParseError, "undersized integer: #{result}" if result < -9_223_372_036_854_775_808
 
       result
+    end
+
+    def from_timestamp(str)
+      raise TJSON::ParseError, "invalid timestamp: #{str.inspect}" unless str =~ /\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\z/
+
+      Time.iso8601(str)
     end
   end
 end
