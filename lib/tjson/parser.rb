@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module TJSON
-  # Parses tagged strings from TJSON
-  module TagParser
+  # Postprocessing for extracting TJSON tags from JSON
+  module Parser
     module_function
 
     TAG_DELIMITER  = ":"

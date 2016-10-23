@@ -8,7 +8,7 @@ require "time"
 
 require "tjson/array"
 require "tjson/object"
-require "tjson/tag_parser"
+require "tjson/parser"
 
 # Tagged JSON with Rich Types
 module TJSON

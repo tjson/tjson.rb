@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe TJSON::TagParser do
+RSpec.describe TJSON::Parser do
   describe ".parse" do
     context "UTF-8 strings" do
       let(:example_result) { "hello, world!" }
