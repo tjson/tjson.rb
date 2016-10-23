@@ -40,7 +40,7 @@ class ExampleLoader
 
     examples.map.with_index do |example, index|
       # Split each example on the "%%%" delimiter
-      metadata_text, data, extra = example.split(/^%%%$/m)
+      metadata_text, data, extra = example.split(/\n\s*\n/m)
       raise ParserError, "extra %%% (example #{index + 1})" unless extra.nil?
 
       # Strip leading newline from metadata
