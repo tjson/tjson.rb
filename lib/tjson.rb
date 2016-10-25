@@ -2,9 +2,10 @@
 
 require "tjson/version"
 
-require "base64"
 require "json"
 require "time"
+require "base32"
+require "base64"
 
 require "tjson/array"
 require "tjson/object"

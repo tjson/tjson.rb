@@ -41,6 +41,35 @@ RSpec.describe TJSON::Parser do
     end
   end
 
+  describe ".parse_base32" do
+    context "valid base32 string" do
+      let(:example_base32) { "jbswy3dpfqqho33snrscc" }
+      let(:example_result) { "Hello, world!" }
+
+      it "parses successfully" do
+        result = described_class.parse_base32(example_base32)
+        expect(result).to eq example_result
+        expect(result.encoding).to eq Encoding::BINARY
+      end
+    end
+
+    context "padded base32 string" do
+      let(:padded_base32) { "jbswy3dpfqqho33snrscc===" }
+
+      it "raises TJSON::ParseError" do
+        expect { described_class.parse_base32(padded_base32) }.to raise_error(TJSON::ParseError)
+      end
+    end
+
+    context "invalid base32 string" do
+      let(:invalid_base32) { "Surely this is not valid base32!" }
+
+      it "raises TJSON::ParseError" do
+        expect { described_class.parse_base32(invalid_base32) }.to raise_error(TJSON::ParseError)
+      end
+    end
+  end
+
   describe ".parse_base64url" do
     context "valid base64url string" do
       let(:example_base64url) { "SGVsbG8sIHdvcmxkIQ" }
