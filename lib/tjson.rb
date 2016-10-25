@@ -8,6 +8,7 @@ require "base32"
 require "base64"
 
 require "tjson/array"
+require "tjson/generator"
 require "tjson/object"
 require "tjson/parser"
 
@@ -30,7 +31,8 @@ module TJSON
 
   # Parse the given UTF-8 string as TJSON
   #
-  # @raise []
+  # @param string [String] TJSON string to be parsed
+  # @raise [TJSON::ParseError] an error occurred parsing the given TJSON
   # @return [Object] parsed data
   def self.parse(string)
     begin
@@ -52,5 +54,14 @@ module TJSON
     rescue ::JSON::ParserError => ex
       raise TJSON::ParseError, ex.message, ex.backtrace
     end
+  end
+
+  # Generate TJSON from a Ruby Hash or Array
+  #
+  # @param obj [Array, Hash] Ruby Hash or Array to serialize as TJSON
+  # @return [String] serialized TJSON
+  def self.generate(obj)
+    raise TypeError, "expected Hash or Array, got #{obj.class}" unless obj.is_a?(Hash) || obj.is_a?(Array)
+    JSON.generate(TJSON::Generator.generate(obj))
   end
 end
