@@ -8,6 +8,7 @@ require "base32"
 require "base64"
 
 require "tjson/array"
+require "tjson/binary"
 require "tjson/generator"
 require "tjson/object"
 require "tjson/parser"

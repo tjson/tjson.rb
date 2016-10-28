@@ -32,7 +32,7 @@ module TJSON
 
     def generate_string(string)
       if string.encoding == Encoding::BINARY
-        "b64:#{Base64.urlsafe_encode64(string).delete('=')}"
+        TJSON::Binary.base64(string)
       else
         "s:#{string.encode(Encoding::UTF_8)}"
       end
