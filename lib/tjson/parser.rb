@@ -50,7 +50,7 @@ module TJSON
 
     def parse_base32(str)
       raise TypeError, "expected String, got #{str.class}" unless str.is_a?(::String)
-      raise TJSON::ParseError, "base32 must be lower case: #{str.inspect}" if str =~ /[A-F]/
+      raise TJSON::ParseError, "base32 must be lower case: #{str.inspect}" if str =~ /[A-Z]/
       raise TJSON::ParseError, "padding disallowed: #{str.inspect}" if str.include?("=")
       raise TJSON::ParseError, "invalid base32: #{str.inspect}" unless str =~ /\A[a-z2-7]*\z/
 
