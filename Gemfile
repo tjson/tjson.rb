@@ -4,6 +4,10 @@ source "https://rubygems.org"
 
 gemspec
 
+group :development do
+  gem "guard-rspec"
+end
+
 group :development, :test do
   gem "rake"
   gem "toml-rb"
