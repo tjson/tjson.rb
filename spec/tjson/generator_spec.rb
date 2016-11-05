@@ -13,7 +13,7 @@ RSpec.describe TJSON::Generator do
       }
     end
 
-    it "round trips an example structure" do
+    xit "round trips an example structure" do
       tjson = TJSON.generate(example_structure)
       expect(TJSON.parse(tjson)).to eq example_structure
     end
