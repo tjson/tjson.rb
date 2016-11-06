@@ -20,15 +20,6 @@ RSpec.describe TJSON do
       end
     end
 
-    # TODO: Remove when draft-tjson-examples has better coverage of object parsing
-    context "object placeholder" do
-      let(:example_data) { '{"s:hello": "s:world"}' }
-
-      it "parses a simple TJSON object" do
-        expect { TJSON.parse(example_data) }.not_to raise_error
-      end
-    end
-
     context "encoding" do
       let(:invalid_string) { "invalid\255".dup.force_encoding(Encoding::BINARY) }
 

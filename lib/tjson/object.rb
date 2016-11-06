@@ -3,16 +3,15 @@
 module TJSON
   # TJSON object type (i.e. hash/dict-alike)
   class Object < ::Hash
-    def []=(name, value)
-      unless name.start_with?("s:", "b16:", "b64:")
-        raise TJSON::ParseError, "invalid tag on object name: #{name[/\A(.*?):/, 1]}" if name.include?(":")
-        raise TJSON::ParseError, "no tag found on object name: #{name.inspect}"
-      end
+    def []=(tagged_name, value)
+      # NOTE: this regex is sloppy. The real parsing is performed in TJSON::DataType#parse
+      result = tagged_name.match(/\A(?<name>.*):(?<tag>[A-Za-z0-9\<]+[\>]*)\z/)
 
-      name = TJSON::Parser.value(name)
-      raise TJSON::DuplicateNameError, "duplicate member name: #{name.inspect}" if key?(name)
+      raise ParseError, "invalid tag: #{tagged_name.inspect}" unless result
+      raise DuplicateNameError, "duplicate member name: #{result[:name].inspect}" if key?(result[:name])
 
-      super(name, TJSON::Parser.value(value))
+      type = TJSON::DataType.parse(result[:tag])
+      super(result[:name], type.convert(value))
     end
   end
 end

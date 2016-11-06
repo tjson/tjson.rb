@@ -7,11 +7,10 @@ require "time"
 require "base32"
 require "base64"
 
-require "tjson/array"
 require "tjson/binary"
+require "tjson/datatype"
 require "tjson/generator"
 require "tjson/object"
-require "tjson/parser"
 
 # Tagged JSON with Rich Types
 module TJSON
@@ -23,6 +22,9 @@ module TJSON
 
   # Failure to parse TJSON document
   ParseError = Class.new(Error)
+
+  # Invalid types
+  TypeError = Class.new(ParseError)
 
   # Duplicate object name
   DuplicateNameError = Class.new(ParseError)
@@ -43,18 +45,20 @@ module TJSON
     end
 
     begin
-      ::JSON.parse(
+      object = ::JSON.parse(
         utf8_string,
         max_nesting:      MAX_NESTING,
         allow_nan:        false,
         symbolize_names:  false,
         create_additions: false,
-        object_class:     TJSON::Object,
-        array_class:      TJSON::Array
+        object_class:     TJSON::Object
       )
     rescue ::JSON::ParserError => ex
       raise TJSON::ParseError, ex.message, ex.backtrace
     end
+
+    raise TJSON::TypeError, "invalid toplevel type: #{object.class}" unless object.is_a?(TJSON::Object)
+    object
   end
 
   # Generate TJSON from a Ruby Hash or Array
