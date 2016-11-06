@@ -2,20 +2,20 @@
 
 module TJSON
   class DataType
-    # Numbers
-    class Number < Scalar; end
-    class Integer < Scalar; end
-
-    # Floating point type
-    class Float < Number
-      def convert(float)
-        raise TJSON::TypeError, "expected Float, got #{float.class}" unless float.is_a?(::Numeric)
-        float.to_f
+    # Base class of integer types
+    class Integer < Scalar
+      def generate(int)
+        # Integers are serialized as strings to sidestep the limits of some JSON parsers
+        int.to_s
       end
     end
 
     # Signed 64-bit integer
     class SignedInt < Integer
+      def tag
+        "i"
+      end
+
       def convert(str)
         raise TJSON::TypeError, "expected String, got #{str.class}: #{str.inspect}" unless str.is_a?(::String)
         raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A\-?(0|[1-9][0-9]*)\z/
@@ -30,6 +30,10 @@ module TJSON
 
     # Unsigned 64-bit integer
     class UnsignedInt < Integer
+      def tag
+        "u"
+      end
+
       def convert(str)
         raise TJSON::TypeError, "expected String, got #{str.class}: #{str.inspect}" unless str.is_a?(::String)
         raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A(0|[1-9][0-9]*)\z/

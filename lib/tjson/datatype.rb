@@ -25,16 +25,67 @@ module TJSON
         raise TJSON::ParseError, "couldn't parse tag: #{tag.inspect}" unless result
       end
     end
+
+    def self.identify_type(obj)
+      case obj
+      when Hash               then self["O"]
+      when ::Array            then TJSON::DataType::Array.identify_type(obj)
+      when ::String, Symbol   then obj.encoding == Encoding::BINARY ? self["b"] : self["s"]
+      when ::Integer          then self["i"]
+      when ::Float            then self["f"]
+      when ::Time, ::DateTime then self["t"]
+      else raise TypeError, "don't know how to serialize #{obj.class} as TJSON"
+      end
+    end
+
+    def self.generate(obj)
+      identify_type(obj).generate(obj)
+    end
+
+    # Scalar types
+    class Scalar < TJSON::DataType
+      def scalar?
+        true
+      end
+
+      def inspect
+        "#<#{self.class}>"
+      end
+    end
+
+    # Non-scalar types
+    class NonScalar < TJSON::DataType
+      attr_reader :inner_type
+
+      def initialize(inner_type)
+        @inner_type = inner_type
+      end
+
+      def inspect
+        "#<#{self.class}<#{@inner_type.inspect}>>"
+      end
+
+      def scalar?
+        false
+      end
+
+      def ==(other)
+        self.class == other.class && inner_type == other.inner_type
+      end
+    end
+
+    # Numbers
+    class Number < Scalar; end
   end
 end
 
-require "tjson/datatype/nonscalar"
-require "tjson/datatype/scalar"
-
+require "tjson/datatype/array"
 require "tjson/datatype/binary"
-require "tjson/datatype/number"
+require "tjson/datatype/float"
+require "tjson/datatype/integer"
 require "tjson/datatype/string"
 require "tjson/datatype/timestamp"
+require "tjson/datatype/object"
 
 # TJSON does not presently support user-extensible types
 TJSON::DataType::TAGS = {
