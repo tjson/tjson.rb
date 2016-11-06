@@ -59,12 +59,21 @@ module TJSON
     object
   end
 
-  # Generate TJSON from a Ruby Hash or Array
+  # Generate TJSON from a Ruby Hash (TJSON only allows objects as toplevel values)
   #
-  # @param obj [Array, Hash] Ruby Hash or Array to serialize as TJSON
+  # @param obj [Hash] Ruby Hash to serialize as TJSON
   # @return [String] serialized TJSON
   def self.generate(obj)
     raise TypeError, "toplevel type must be a Hash" unless obj.is_a?(Hash)
     JSON.generate(TJSON::DataType.generate(obj))
+  end
+
+  # Generate TJSON from a Ruby Hash (TJSON only allows objects as toplevel values)
+  #
+  # @param obj [Hash] Ruby Hash to serialize as TJSON
+  # @return [String] serialized TJSON
+  def self.pretty_generate(obj)
+    raise TypeError, "toplevel type must be a Hash" unless obj.is_a?(Hash)
+    JSON.pretty_generate(TJSON::DataType.generate(obj))
   end
 end
