@@ -7,9 +7,7 @@ require "time"
 require "base32"
 require "base64"
 
-require "tjson/binary"
 require "tjson/datatype"
-require "tjson/generator"
 require "tjson/object"
 
 # Tagged JSON with Rich Types
@@ -66,7 +64,7 @@ module TJSON
   # @param obj [Array, Hash] Ruby Hash or Array to serialize as TJSON
   # @return [String] serialized TJSON
   def self.generate(obj)
-    raise TypeError, "expected Hash or Array, got #{obj.class}" unless obj.is_a?(Hash) || obj.is_a?(Array)
-    JSON.generate(TJSON::Generator.generate(obj))
+    raise TypeError, "toplevel type must be a Hash" unless obj.is_a?(Hash)
+    JSON.generate(TJSON::DataType.generate(obj))
   end
 end

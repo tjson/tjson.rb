@@ -1,6 +1,29 @@
 # frozen_string_literal: true
 
 RSpec.describe TJSON::DataType do
+  describe ".identify_type" do
+    it "needs tests!"
+  end
+
+  describe ".generate" do
+    let(:example_structure) do
+      {
+        "hash"  => { "foo" => "bar" },
+        "array" => [1, 2, 3],
+        "float" => 0.123,
+        "int"   => 42,
+        "bin"   => "BINARY".dup.force_encoding(Encoding::BINARY),
+        "ts"    => Time.at(Time.now.to_i)
+      }
+    end
+
+    it "round trips an example structure" do
+      tjson = TJSON.generate(example_structure)
+      puts tjson
+      expect(TJSON.parse(tjson)).to eq example_structure
+    end
+  end
+
   context "scalars" do
     context "binary data" do
       it "parses base16 tags" do
