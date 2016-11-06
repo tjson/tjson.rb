@@ -23,7 +23,10 @@ module TJSON
     class Array < NonScalar
       def convert(array)
         raise TJSON::TypeError, "expected Array, got #{array.class}" unless array.is_a?(::Array)
-        array.map! { |o| @inner_type.convert(o) }
+
+        return array.map! { |o| @inner_type.convert(o) } if @inner_type
+        return array if array.empty?
+        raise TJSON::ParseError, "no inner type specified for non-empty array: #{array.inspect}"
       end
     end
 
