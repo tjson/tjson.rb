@@ -33,10 +33,10 @@ class ExampleLoader
     examples = examples_text.split(EXAMPLES_DELIMITER)
 
     # There shouldn't be anything except whitespace before the first delimiter
-    raise ParseError, "unexpected data before leading '-----'" unless examples.shift.match?(/\A\s*\z/)
+    raise ParseError, "unexpected data before leading '-----'" unless examples.shift =~ /\A\s*\z/
 
     # There shouldn't be anything except whitespace after the last delimiter
-    raise ParseError, "unexpected data before trailing '-----'" unless examples.pop.match?(/\A\s*\z/)
+    raise ParseError, "unexpected data before trailing '-----'" unless examples.pop =~ /\A\s*\z/
 
     examples.map.with_index do |example, index|
       # Split each example on the "%%%" delimiter

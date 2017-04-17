@@ -18,7 +18,7 @@ module TJSON
 
       def convert(str)
         raise TJSON::TypeError, "expected String, got #{str.class}: #{str.inspect}" unless str.is_a?(::String)
-        raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str.match?(/\A\-?(0|[1-9][0-9]*)\z/)
+        raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A\-?(0|[1-9][0-9]*)\z/
 
         result = Integer(str, 10)
         raise TJSON::ParseError, "oversized integer: #{result}"  if result > 9_223_372_036_854_775_807
@@ -36,7 +36,7 @@ module TJSON
 
       def convert(str)
         raise TJSON::TypeError, "expected String, got #{str.class}: #{str.inspect}" unless str.is_a?(::String)
-        raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str.match?(/\A(0|[1-9][0-9]*)\z/)
+        raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A(0|[1-9][0-9]*)\z/
 
         result = Integer(str, 10)
         raise TJSON::ParseError, "oversized integer: #{result}" if result > 18_446_744_073_709_551_615

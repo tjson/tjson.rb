@@ -18,7 +18,7 @@ module TJSON
         # Non-scalar
         inner = parse(result[:inner]) unless result[:inner].empty?
         TJSON::DataType[result[:type]].new(inner).freeze
-      elsif tag.match?(/\A[a-z][a-z0-9]*\z/)
+      elsif tag =~ /\A[a-z][a-z0-9]*\z/
         # Scalar
         TJSON::DataType[tag]
       else

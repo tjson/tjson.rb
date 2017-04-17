@@ -13,7 +13,7 @@ module TJSON
 
       def convert(str)
         raise TJSON::TypeError, "expected String, got #{str.class}: #{str.inspect}" unless str.is_a?(::String)
-        raise TJSON::ParseError, "invalid timestamp: #{str.inspect}" unless str.match?(TIMESTAMP_REGEX)
+        raise TJSON::ParseError, "invalid timestamp: #{str.inspect}" unless str =~ TIMESTAMP_REGEX
 
         ::Time.iso8601(str)
       end
