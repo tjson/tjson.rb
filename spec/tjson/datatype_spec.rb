@@ -19,7 +19,6 @@ RSpec.describe TJSON::DataType do
 
     it "round trips an example structure" do
       tjson = TJSON.generate(example_structure)
-      puts tjson
       expect(TJSON.parse(tjson)).to eq example_structure
     end
   end

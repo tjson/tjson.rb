@@ -18,7 +18,7 @@ module TJSON
         # Non-scalar
         inner = parse(result[:inner]) unless result[:inner].empty?
         TJSON::DataType[result[:type]].new(inner).freeze
-      elsif tag =~ /\A[a-z][a-z0-9]*\z/
+      elsif tag.match?(/\A[a-z][a-z0-9]*\z/)
         # Scalar
         TJSON::DataType[tag]
       else
@@ -30,6 +30,7 @@ module TJSON
       case obj
       when Hash               then self["O"]
       when ::Array            then TJSON::DataType::Array.identify_type(obj)
+      when ::Set              then TJSON::DataType::Set.identify_type(obj)
       when ::String, Symbol   then obj.encoding == Encoding::BINARY ? self["b"] : self["s"]
       when ::Integer          then self["i"]
       when ::Float            then self["f"]
@@ -40,6 +41,18 @@ module TJSON
 
     def self.generate(obj)
       identify_type(obj).generate(obj)
+    end
+
+    def tag
+      raise NotImplementError, "no #tag defined for #{self.class}"
+    end
+
+    def convert(_value)
+      raise NotImplementedError, "#{self.class} does not implement #convert"
+    end
+
+    def generate(_value)
+      raise NotImplementedError, "#{self.class} does not implement #genreate"
     end
 
     # Scalar types
@@ -83,9 +96,11 @@ require "tjson/datatype/array"
 require "tjson/datatype/binary"
 require "tjson/datatype/float"
 require "tjson/datatype/integer"
+require "tjson/datatype/set"
 require "tjson/datatype/string"
 require "tjson/datatype/timestamp"
 require "tjson/datatype/object"
+require "tjson/datatype/value"
 
 # TJSON does not presently support user-extensible types
 TJSON::DataType::TAGS = {
@@ -94,6 +109,7 @@ TJSON::DataType::TAGS = {
 
   # Non-scalars
   "A" => TJSON::DataType::Array,
+  "S" => TJSON::DataType::Set,
 
   # Scalars
   "b"   => TJSON::DataType::Binary64.new.freeze,
@@ -104,5 +120,6 @@ TJSON::DataType::TAGS = {
   "i"   => TJSON::DataType::SignedInt.new.freeze,
   "s"   => TJSON::DataType::String.new.freeze,
   "t"   => TJSON::DataType::Timestamp.new.freeze,
-  "u"   => TJSON::DataType::UnsignedInt.new.freeze
+  "u"   => TJSON::DataType::UnsignedInt.new.freeze,
+  "v"   => TJSON::DataType::Value.new.freeze
 }.freeze

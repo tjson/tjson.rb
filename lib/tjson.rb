@@ -3,7 +3,9 @@
 require "tjson/version"
 
 require "json"
+require "set"
 require "time"
+
 require "base32"
 require "base64"
 

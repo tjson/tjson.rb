@@ -10,7 +10,7 @@ end
 
 group :development, :test do
   gem "rake"
-  gem "toml-rb"
   gem "rspec", "~> 3.5"
-  gem "rubocop", "0.44.1"
+  gem "rubocop", "0.48.1"
+  gem "toml-rb"
 end

@@ -9,7 +9,7 @@ module TJSON
       end
 
       def convert(float)
-        raise TJSON::TypeError, "expected Float, got #{float.class}" unless float.is_a?(::Numeric)
+        raise TJSON::TypeError, "not a floating point value: #{float.inspect}" unless float.is_a?(::Numeric)
         float.to_f
       end
 
