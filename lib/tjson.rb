@@ -61,6 +61,19 @@ module TJSON
     object
   end
 
+  class << self
+    alias load parse
+  end
+
+  # Load data from a file containing TJSON
+  #
+  # @param filename [String] name of the .tjson file
+  # @raise [TJSON::ParseError] an error occurred parsing the given file
+  # @return [Object] parsed data
+  def self.load_file(filename)
+    load(File.read(filename))
+  end
+
   # Generate TJSON from a Ruby Hash (TJSON only allows objects as toplevel values)
   #
   # @param obj [Hash] Ruby Hash to serialize as TJSON
