@@ -46,8 +46,10 @@ The following describes how TJSON types map onto Ruby types during parsing:
  * **Binary Data**: parsed as Ruby `String` with `Encoding::ASCII_8BIT` (a.k.a. `Encoding::BINARY`)
  * **Integers**: parsed as Ruby `Integer` (Fixnum or Bignum)
  * **Floats** (i.e. JSON number literals): parsed as Ruby `Float`
+ * **Boolean Values**: parsed as Ruby `true` and `false`
  * **Timestamps**: parsed as Ruby `Time`
  * **Arrays**: parsed as Ruby `Array`
+ * **Sets**: parsed as Ruby `Set`
  * **Objects**: parsed as `TJSON::Object` (a subclass of `::Hash`)
 
 ### Generating
