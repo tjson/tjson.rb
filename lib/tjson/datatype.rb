@@ -34,6 +34,8 @@ module TJSON
       when ::String, Symbol   then obj.encoding == Encoding::BINARY ? self["b"] : self["s"]
       when ::Integer          then self["i"]
       when ::Float            then self["f"]
+      when ::TrueClass        then self["v"]
+      when ::FalseClass       then self["v"]
       when ::Time, ::DateTime then self["t"]
       else raise TypeError, "don't know how to serialize #{obj.class} as TJSON"
       end
