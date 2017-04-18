@@ -39,9 +39,9 @@ class ExampleLoader
     raise ParseError, "unexpected data before trailing '-----'" unless examples.pop =~ /\A\s*\z/
 
     examples.map.with_index do |example, index|
-      # Split each example on the "%%%" delimiter
+      # Split each example on surrounding whitespace
       metadata_text, data, extra = example.split(/\n\s*\n/m)
-      raise ParserError, "extra %%% (example #{index + 1})" unless extra.nil?
+      raise ParserError, "whitespace invalid (example #{index + 1})" unless extra.nil?
 
       # Strip leading newline from metadata
       metadata_text.sub!(/\A\n/m, "")
