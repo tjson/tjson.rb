@@ -3,7 +3,7 @@
 module TJSON
   class DataType
     # Floating point type
-    class Float < Number
+    class Float < Scalar
       def tag
         "f"
       end

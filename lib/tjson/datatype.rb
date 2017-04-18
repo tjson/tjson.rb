@@ -88,9 +88,6 @@ module TJSON
         self.class == other.class && inner_type == other.inner_type
       end
     end
-
-    # Numbers
-    class Number < Scalar; end
   end
 end
 
