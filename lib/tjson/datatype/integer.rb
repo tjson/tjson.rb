@@ -4,7 +4,7 @@ module TJSON
   class DataType
     # Base class of integer types
     class Integer < Scalar
-      def generate(int)
+      def encode(int)
         # Integers are serialized as strings to sidestep the limits of some JSON parsers
         int.to_s
       end
@@ -16,7 +16,7 @@ module TJSON
         "i"
       end
 
-      def convert(str)
+      def decode(str)
         raise TJSON::TypeError, "expected String, got #{str.class}: #{str.inspect}" unless str.is_a?(::String)
         raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A\-?(0|[1-9][0-9]*)\z/
 
@@ -34,7 +34,7 @@ module TJSON
         "u"
       end
 
-      def convert(str)
+      def decode(str)
         raise TJSON::TypeError, "expected String, got #{str.class}: #{str.inspect}" unless str.is_a?(::String)
         raise TJSON::ParseError, "invalid integer: #{str.inspect}" unless str =~ /\A(0|[1-9][0-9]*)\z/
 

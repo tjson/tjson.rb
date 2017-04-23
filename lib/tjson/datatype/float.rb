@@ -8,12 +8,12 @@ module TJSON
         "f"
       end
 
-      def convert(float)
+      def decode(float)
         raise TJSON::TypeError, "not a floating point value: #{float.inspect}" unless float.is_a?(::Numeric)
         float.to_f
       end
 
-      def generate(float)
+      def encode(float)
         float.to_f
       end
     end

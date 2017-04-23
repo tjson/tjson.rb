@@ -21,7 +21,7 @@ RSpec.describe TJSON do
     end
 
     context "encoding" do
-      let(:invalid_string) { "invalid\255".dup.force_encoding(Encoding::BINARY) }
+      let(:invalid_string) { "invalid\255".b }
 
       it "raises TJSON::EncodingError if given a invalid UTF-8 string" do
         expect { TJSON.parse(invalid_string) }.to raise_error(TJSON::EncodingError)

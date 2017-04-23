@@ -21,16 +21,16 @@ module TJSON
         "A<#{@inner_type.tag}>"
       end
 
-      def convert(array)
+      def decode(array)
         raise TJSON::TypeError, "expected Array, got #{array.class}" unless array.is_a?(::Array)
 
-        return array.map! { |o| @inner_type.convert(o) } if @inner_type
+        return array.map! { |o| @inner_type.decode(o) } if @inner_type
         return array if array.empty?
         raise TJSON::ParseError, "no inner type specified for non-empty array: #{array.inspect}"
       end
 
-      def generate(array)
-        array.map { |o| TJSON::DataType.generate(o) }
+      def encode(array)
+        array.map { |o| TJSON::DataType.encode(o) }
       end
     end
   end
