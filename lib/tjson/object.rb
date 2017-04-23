@@ -11,7 +11,7 @@ module TJSON
       raise DuplicateNameError, "duplicate member name: #{result[:name].inspect}" if key?(result[:name])
 
       type = TJSON::DataType.parse(result[:tag])
-      super(result[:name], type.convert(value))
+      super(result[:name], type.decode(value))
     end
   end
 end

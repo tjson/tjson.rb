@@ -3,18 +3,18 @@
 module TJSON
   class DataType
     # Boolean Value
-    class Value < Scalar
+    class Boolean < Scalar
       def tag
-        "v"
+        "b"
       end
 
-      def convert(value)
+      def decode(value)
         raise TJSON::TypeError, "'null' is expressly disallowed in TJSON" if value.nil?
         raise TJSON::TypeError, "not a boolean value: #{value.inspect}" unless [true, false].include?(value)
         value
       end
 
-      def generate(value)
+      def encode(value)
         value
       end
     end

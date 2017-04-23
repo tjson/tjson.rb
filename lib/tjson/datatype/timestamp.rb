@@ -11,14 +11,14 @@ module TJSON
         "t"
       end
 
-      def convert(str)
+      def decode(str)
         raise TJSON::TypeError, "expected String, got #{str.class}: #{str.inspect}" unless str.is_a?(::String)
         raise TJSON::ParseError, "invalid timestamp: #{str.inspect}" unless str =~ TIMESTAMP_REGEX
 
         ::Time.iso8601(str)
       end
 
-      def generate(timestamp)
+      def encode(timestamp)
         timestamp.to_time.utc.iso8601
       end
     end

@@ -34,11 +34,11 @@ RSpec.describe TJSON::DataType::Array do
     end
   end
 
-  describe "#convert" do
+  describe "#decode" do
     it "needs tests!"
   end
 
-  describe "#generate" do
+  describe "#encode" do
     it "needs tests!"
   end
 end

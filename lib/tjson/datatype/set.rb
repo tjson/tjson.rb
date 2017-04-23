@@ -21,11 +21,11 @@ module TJSON
         "S<#{@inner_type.tag}>"
       end
 
-      def convert(array)
+      def decode(array)
         raise TJSON::TypeError, "expected Array, got #{array.class}" unless array.is_a?(::Array)
 
         if @inner_type
-          result = ::Set.new(array.map { |o| @inner_type.convert(o) })
+          result = ::Set.new(array.map { |o| @inner_type.decode(o) })
           raise TJSON::ParseError, "set contains duplicate items" if result.size < array.size
           return result
         end
@@ -34,7 +34,7 @@ module TJSON
         raise TJSON::ParseError, "no inner type specified for non-empty set: #{array.inspect}"
       end
 
-      def generate(set)
+      def encode(set)
         set.map { |o| TJSON::DataType.generate(o) }
       end
     end

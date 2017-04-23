@@ -8,18 +8,18 @@ module TJSON
         "O"
       end
 
-      def convert(obj)
+      def decode(obj)
         raise TJSON::TypeError, "expected TJSON::Object, got #{obj.class}" unless obj.is_a?(TJSON::Object)
 
         # Objects handle their own member conversions
         obj
       end
 
-      def generate(obj)
+      def encode(obj)
         members = obj.map do |k, v|
           raise TypeError, "expected String for key, got #{k.class}" unless k.is_a?(::String) || k.is_a?(Symbol)
           type = TJSON::DataType.identify_type(v)
-          ["#{k}:#{type.tag}", TJSON::DataType.generate(v)]
+          ["#{k}:#{type.tag}", TJSON::DataType.encode(v)]
         end
 
         Hash[members]

@@ -5,14 +5,14 @@ RSpec.describe TJSON::DataType do
     it "needs tests!"
   end
 
-  describe ".generate" do
+  describe ".encode" do
     let(:example_structure) do
       {
         "hash"  => { "foo" => "bar" },
         "array" => [1, 2, 3],
         "float" => 0.123,
         "int"   => 42,
-        "bin"   => "BINARY".dup.force_encoding(Encoding::BINARY),
+        "bin"   => "BINARY".b,
         "ts"    => Time.at(Time.now.to_i)
       }
     end
@@ -26,19 +26,19 @@ RSpec.describe TJSON::DataType do
   context "scalars" do
     context "binary data" do
       it "parses base16 tags" do
-        expect(described_class.parse("b16")).to be_a TJSON::DataType::Binary16
+        expect(described_class.parse("d16")).to be_a TJSON::DataType::Binary16
       end
 
       it "parses base32 tags" do
-        expect(described_class.parse("b32")).to be_a TJSON::DataType::Binary32
+        expect(described_class.parse("d32")).to be_a TJSON::DataType::Binary32
       end
 
       it "parses base64url tags" do
-        expect(described_class.parse("b64")).to be_a TJSON::DataType::Binary64
+        expect(described_class.parse("d64")).to be_a TJSON::DataType::Binary64
       end
 
       it "parses implicit base64url tags" do
-        expect(described_class.parse("b")).to be_a TJSON::DataType::Binary64
+        expect(described_class.parse("d")).to be_a TJSON::DataType::Binary64
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe TJSON::DataType do
   end
 
   context "invalid tag" do
-    let(:invalid_tag) { "X<b64>" }
+    let(:invalid_tag) { "X<d64>" }
 
     it "raises TJSON::TypeError" do
       expect { described_class.parse(invalid_tag) }.to raise_error(TJSON::TypeError)
