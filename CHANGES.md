@@ -1,3 +1,7 @@
+## 0.5.0 (2017-04-22)
+
+* Use "b" for boolean (reassigning binary data to "d")
+
 ## 0.4.0 (2017-04-16)
 
 * Add support for Boolean Value and Set types
