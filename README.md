@@ -2,7 +2,8 @@
 
 A Ruby implementation of [TJSON]: Tagged JSON with Rich Types.
 
-[TJSON]: https://www.tjson.org
+[TJSON] is a microformat which supplements JSON with an extended set of
+data types by supplying a type "tag" embedded in object member names:
 
 ```json
 {
@@ -28,6 +29,7 @@ A Ruby implementation of [TJSON]: Tagged JSON with Rich Types.
 [codeclimate-link]: https://codeclimate.com/github/tjson/tjson-ruby
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg
 [license-link]: https://github.com/tjson/tjson-ruby/blob/master/LICENSE.txt
+[TJSON]: https://www.tjson.org
 
 ## Help and Discussion
 
