@@ -9,3 +9,8 @@ require "rubocop/rake_task"
 RuboCop::RakeTask.new
 
 task default: %w[spec rubocop]
+
+case ENV["SUITE"]
+when "rubocop" then task ci: %w[rubocop]
+else task ci: %w[spec]
+end

@@ -4,6 +4,8 @@ before_install: gem install bundler
 
 bundler_args: --without development doc
 
+script: bundle exec rake ci
+
 rvm:
   - jruby-9.1.5.0
   - 2.0
@@ -14,6 +16,10 @@ rvm:
 
 matrix:
   fast_finish: true
+  include:
+  # Only run RuboCop on the latest Ruby
+  - env: SUITE="rubocop"
+    rvm: 2.4.1
 
 branches:
   only:
