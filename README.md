@@ -85,25 +85,25 @@ To parse a TJSON document, use the `TJSON.parse` method:
 To generate TJSON from Ruby objects, use the `TJSON.generate` method:
 
 ```ruby
-TJSON.generate({"foo" => "bar"})
+puts TJSON.generate({"foo" => "bar"})
 # {"foo:s:"bar"}
 ```
 
 For better formatting, use the `TJSON.pretty_generate` method:
 
 ```ruby
-TJSON.pretty_generate({"array-example" => [{"string-example" => "foobar", "binary-example" => "BINARY".b, "float-example" => 0.42, "int-example" => 42, "timestamp-example" => Time.now}]})
+puts TJSON.pretty_generate({"array-example" => [{"string-example" => "foobar", "binary-example" => "BINARY".b, "float-example" => 0.42, "int-example" => 42, "timestamp-example" => Time.now}]})
 # {
-#  "array-example:A<O>": [
-#    {
-#      "string-example:s": "foobar",
-#      "binary-example:b64": "QklOQVJZ",
-#      "float-example:f": 0.42,
-#      "int-example:i": "42",
-#      "timestamp-example:t": "2016-11-06T22:27:34Z"
-#    }
-#  ]
-#}
+#   "array-example:A<O>": [
+#     {
+#       "string-example:s": "foobar",
+#       "binary-example:d": "QklOQVJZ",
+#       "float-example:f": 0.42,
+#       "int-example:i": "42",
+#       "timestamp-example:t": "2016-11-06T22:27:34Z"
+#     }
+#   ]
+# }
 ```
 
 ## Type Conversions
