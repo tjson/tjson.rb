@@ -13,5 +13,5 @@ group :development, :test do
   gem "rake"
   gem "rspec", "~> 3.5"
   gem "rubocop", "0.48.1"
-  gem "toml-rb"
+  gem "toml-rb", "~> 2"
 end
