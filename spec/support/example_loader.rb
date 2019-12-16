@@ -2,7 +2,7 @@
 
 require "uri"
 require "net/http"
-require "toml"
+require "toml-rb"
 
 # Load standard test cases from the TJSON specification
 class ExampleLoader
@@ -47,9 +47,9 @@ class ExampleLoader
       metadata_text.sub!(/\A\n/m, "")
 
       begin
-        metadata = TOML.parse(metadata_text)
-      rescue TOML::ParseError => ex
-        raise ParseError, "bad TOML in metadata (example \##{number + 1}): #{ex.message}", ex.backtrace
+        metadata = TomlRB.parse(metadata_text)
+      rescue TomlRB::ParseError => ex
+        raise ParseError, "bad TomlRB in metadata (example \##{number + 1}): #{ex.message}", ex.backtrace
       end
 
       Example.new(data, metadata)
