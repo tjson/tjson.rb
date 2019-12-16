@@ -46,12 +46,10 @@ Have questions? Want to suggest a feature or change?
 
 This library is tested against the following Ruby versions:
 
-- 2.0
-- 2.1
-- 2.2
-- 2.3
 - 2.4
-- jruby 9.1
+- 2.5
+- 2.6
+- JRuby
 
 Other Ruby versions may work, but are not officially supported.
 
