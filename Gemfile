@@ -12,6 +12,6 @@ end
 group :development, :test do
   gem "rake"
   gem "rspec", "~> 3.5"
-  gem "rubocop", "0.48.1"
+  gem "rubocop", "0.80.0"
   gem "toml-rb", "~> 2"
 end
